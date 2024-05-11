@@ -1,0 +1,157 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > AzureStorageService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.garflex.Utils</a>
+</div>
+
+<h1>Coverage Summary for Class: AzureStorageService (com.garflex.Utils)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AzureStorageService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (1/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    5,9%
+  </span>
+  <span class="absValue">
+    (1/17)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.garflex.Utils;
+&nbsp;
+&nbsp;import com.azure.storage.blob.BlobClient;
+&nbsp;import com.azure.storage.blob.BlobServiceClient;
+&nbsp;import com.azure.storage.blob.BlobServiceClientBuilder;
+&nbsp;import com.garflex.Utils.interfaces.IAzureStorageService;
+&nbsp;import org.springframework.beans.factory.annotation.Value;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;import org.springframework.web.multipart.MultipartFile;
+&nbsp;
+&nbsp;import java.io.IOException;
+&nbsp;
+&nbsp;@Service
+<b class="fc">&nbsp;public class AzureStorageService implements IAzureStorageService {</b>
+&nbsp;
+&nbsp;    @Value(&quot;${spring.cloud.azure.storage.blob.container-name}&quot;)
+&nbsp;    private String containerName;
+&nbsp;
+&nbsp;    @Value(&quot;${spring.blob.storage.connection-string}&quot;)
+&nbsp;    private String connectionString;
+&nbsp;
+&nbsp;    private BlobServiceClient blobServiceClient;
+&nbsp;
+&nbsp;    public BlobClient init(String name){
+<b class="nc">&nbsp;        System.out.println(connectionString);</b>
+<b class="nc">&nbsp;        blobServiceClient = new BlobServiceClientBuilder()</b>
+<b class="nc">&nbsp;                .connectionString(connectionString)</b>
+<b class="nc">&nbsp;                .buildClient();</b>
+&nbsp;
+<b class="nc">&nbsp;        String fileName = name;</b>
+<b class="nc">&nbsp;        BlobClient blobClient = blobServiceClient</b>
+<b class="nc">&nbsp;                .getBlobContainerClient(containerName)</b>
+<b class="nc">&nbsp;                .getBlobClient(fileName);</b>
+<b class="nc">&nbsp;        return blobClient;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String saveFile(MultipartFile file) {
+&nbsp;        try {
+<b class="nc">&nbsp;            BlobClient blobClient = init(file.getOriginalFilename());</b>
+<b class="nc">&nbsp;            blobClient.upload(file.getInputStream(), file.getSize(),true);</b>
+<b class="nc">&nbsp;            return blobClient.getBlobUrl();</b>
+<b class="nc">&nbsp;        }catch (IOException ex){</b>
+<b class="nc">&nbsp;            return &quot;&quot;;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void deleteFile(String name) {
+<b class="nc">&nbsp;        BlobClient blobClient = init(name);</b>
+<b class="nc">&nbsp;        blobClient.delete();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-19 08:07</div>
+</div>
+</body>
+</html>

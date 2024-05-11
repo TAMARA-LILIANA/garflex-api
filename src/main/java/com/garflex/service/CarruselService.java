@@ -3,7 +3,7 @@ package com.garflex.service;
 import com.garflex.entity.Carrusel;
 import com.garflex.repository.CarruselRepository;
 import com.garflex.service.interfaces.ICarruselService;
-import com.garflex.storage.AzureStorageService;
+import com.garflex.Utils.AzureStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,7 +49,7 @@ public class CarruselService implements ICarruselService {
     @Transactional
     @Override
     public void delete(Carrusel carrusel) {
-
+        azureStorage.deleteFile(carrusel.getNombreArchivo());
         carruselRepository.delete(carrusel);
     }
 }

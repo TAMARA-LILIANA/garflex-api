@@ -2,8 +2,8 @@ package com.garflex.service;
 
 import com.garflex.entity.Informacion;
 import com.garflex.repository.InformacionRepository;
+import com.garflex.Utils.AzureStorageService;
 import com.garflex.service.interfaces.IInformacionService;
-import com.garflex.storage.AzureStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,7 +48,7 @@ public class InformacionService implements IInformacionService {
     @Transactional
     @Override
     public void delete(Informacion Informacion) {
-
+        azureStorage.deleteFile(Informacion.getNombreArchivo());
         InformacionRepository.delete(Informacion);
     }
     

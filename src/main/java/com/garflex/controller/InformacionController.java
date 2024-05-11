@@ -1,6 +1,6 @@
 package com.garflex.controller;
-
 import com.garflex.entity.Informacion;
+import com.garflex.entity.Usuario;
 import com.garflex.service.interfaces.IInformacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,26 +15,26 @@ public class InformacionController {
     @PostMapping("create")
     public Informacion create(@RequestParam("titulo") String titulo,
                            @RequestParam("descripcion") String descripcion,
-                           @RequestParam("file") MultipartFile file){
+                           @RequestParam("url") MultipartFile file){
         Informacion informacion = new Informacion();
         informacion.setTitulo(titulo);
         informacion.setDescripcion(descripcion);
-        return informacionService.save(informacion,file);
+        return informacionService.save(informacion, file);
     }
 
     @PutMapping("update")
     public Informacion update(@RequestParam("id") Integer id,
-                           @RequestParam("titulo") String titulo,
-                           @RequestParam("descripcion") String descripcion,
-                           @RequestParam("fileName") String fileName,
-                           @RequestParam("file") MultipartFile file){
+                              @RequestParam("titulo") String titulo,
+                              @RequestParam("descripcion") String descripcion,
+                              @RequestParam("url") MultipartFile file){
         Informacion informacion = new Informacion();
         informacion.setId(id);
         informacion.setTitulo(titulo);
         informacion.setDescripcion(descripcion);
-        informacion.setNombreArchivo(fileName);
         return informacionService.save(informacion, file);
     }
+
+
 
     @DeleteMapping("delete")
     public void delete (@RequestBody Informacion informacion){
@@ -52,3 +52,5 @@ public class InformacionController {
     }
 
 }
+
+

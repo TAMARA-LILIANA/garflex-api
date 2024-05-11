@@ -1,9 +1,9 @@
-package com.garflex.storage;
+package com.garflex.Utils;
 
 import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
-import com.garflex.storage.interfaces.IAzureStorageService;
+import com.garflex.Utils.interfaces.IAzureStorageService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -47,7 +47,7 @@ public class AzureStorageService implements IAzureStorageService {
 
     @Override
     public void deleteFile(String name) {
-        BlobClient blobClient = init(name);
-        blobClient.delete();
+        //BlobClient blobClient = init(name);
+        //blobClient.delete();
     }
 }
